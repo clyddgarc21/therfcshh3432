@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+</script>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>..::[MIKEY TOKYO]::..</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-yellow: #ffff00;
+            --error-red: #ff3e3e;
+            --success-green: #00ff88;
+            --telegram-blue: #0088cc;
+            --glass: rgba(0, 5, 15, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Cinzel', serif;
+            background: #000;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        input {
+            user-select: text !important;
+            -webkit-user-select: text !important;
+        }
+
+        .lion-master-bg {
+            position: fixed;
+            inset: 0;
+            background: url('leon.jpg') center/cover no-repeat;
+            opacity: 0.35;
+            z-index: -3;
+            animation: zoomEffect 20s infinite alternate ease-in-out;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9));
+            z-index: -2;
+        }
+
+        #sparks {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: rgba(0, 0, 0, 0.95);
+            border-right: 1px solid var(--neon-blue);
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .sidebar h2 {
+            font-family: 'Orbitron';
+            font-size: 12px;
+            color: var(--neon-blue);
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 4px;
+        }
+
+        .nav-link {
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            color: #fff;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 10px;
+            margin-bottom: 12px;
+            text-align: center;
+            letter-spacing: 2px;
+            transition: 0.4s;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-link:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .creator-link {
+            border-color: var(--telegram-blue);
+            color: var(--telegram-blue);
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .masters-panel {
+            width: 100%;
+            max-width: 950px;
+            background: var(--glass);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            border-radius: 30px;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            backdrop-filter: blur(15px);
+            position: relative;
+        }
+
+        .card-visual {
+            width: 100%;
+            aspect-ratio: 1.58/1;
+            background: linear-gradient(135deg, #050505 0%, #1a1a1a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 242, 255, 0.1);
+        }
+
+        .card-brand {
+            font-family: 'Orbitron';
+            color: var(--neon-blue);
+            text-align: right;
+            font-size: 16px;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .card-chip {
+            width: 45px;
+            height: 35px;
+            background: linear-gradient(135deg, #d4af37, #f9e29c);
+            border-radius: 6px;
+        }
+
+        .card-number-text {
+            font-family: 'Orbitron';
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            color: #fff;
+        }
+
+        .user-neon {
+            color: var(--neon-yellow) !important;
+            text-shadow: 1px 1px 2px #000, 0 0 10px var(--neon-yellow);
+            font-weight: 900;
+        }
+
+        h1 {
+            font-family: 'Orbitron';
+            color: var(--neon-blue);
+            font-size: 18px;
+            margin-bottom: 25px;
+            text-align: center;
+            letter-spacing: 5px;
+        }
+
+        .input-group {
+            margin-bottom: 22px;
+        }
+
+        .input-group label {
+            font-size: 10px;
+            color: var(--neon-blue);
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 18px;
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Orbitron';
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--neon-blue);
+            background: rgba(0, 242, 255, 0.05);
+        }
+
+        /* ESTADOS DE VALIDACIÓN */
+        input.valid-card {
+            border-color: var(--success-green) !important;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            color: var(--success-green);
+        }
+
+        input.invalid {
+            border-color: var(--error-red) !important;
+            box-shadow: 0 0 15px rgba(255, 62, 62, 0.4);
+            color: var(--error-red);
+        }
+
+        input:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        .btn-asociar {
+            width: 100%;
+            background: var(--neon-blue);
+            color: #000;
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            font-family: 'Orbitron';
+            font-weight: 900;
+            cursor: pointer;
+            letter-spacing: 3px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-asociar:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        #overlayPause {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.98);
+            color: #ff3e3e;
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Orbitron';
+            padding: 40px;
+        }
+
+        body.page-paused #overlayPause {
+            display: flex;
+        }
+
+        #toast {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            border: 2px solid var(--success-green);
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-family: 'Orbitron';
+            color: var(--success-green);
+            z-index: 1000;
+            font-size: 12px;
+            font-weight: bold;
+            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #toast.show {
+            top: 30px;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 15px;
+                border-right: none;
+                border-bottom: 1px solid var(--neon-blue);
+            }
+
+            .masters-panel {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+            }
+        }
+
+        @keyframes zoomEffect {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+    <style>
+        .imageye-selected {
+            outline: 2px solid black !important;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
+        }
+    </style>
+</head>
+
+<body __processed_16ddf34a-3c50-4ec9-8224-f044fd00cb92__="true">
+
+    <div class="lion-master-bg"></div>
+    <div class="overlay"></div>
+    <canvas id="sparks" width="945" height="619"></canvas>
+    <div id="toast">Asociando Tarjeta.....</div>
+
+    <aside class="sidebar">
+        <a href="https://payments.google.com/gp/w/home/paymentmethods" target="_blank" class="nav-link"
+            style="color:#ffcc00; border-color:#ffcc00;"> PAYMENTS GOOGLE </a>
+        </a>
+        <a href="https://mikeytokyo0v3.netlify.app/#"
+            onclick="prompt(&#39;PEGAR EN CHROME:&#39;,&#39;chrome://flags/#enable-autofill-credit-card-upload&#39;)"
+            class="nav-link" style="color:#ffcc00; border-color:#ffcc00;">AUTOFILL CHROME</a>
+        <a href="https://poshmark.com/listing/6866d632f4d1796a9a70d4a2/guest_buy?size=OS" target="_blank"
+            class="nav-link">VERIFICAR OP1</a>
+        <a href="https://www.yonawest.com/checkouts/cn/hWN8PdqbujzRivClD86w2VgA/es-us?_r=AQABu0S-rTl_Ma4qULusNDQ8qgLJ8DLQq74MVID2m612"
+            target="_blank" class="nav-link">VERIFICAR OP2</a>
+        <a href="https://www.pro-mstore.com/checkouts/cn/hWN8dT5LePtfwij4QdJgQmry/es-hr?_r=AQABKlQ630GeR4a7dnAH8j39zI2pynIXMwwFX9t1SQjH4qU&auto_redirect=false&edge_redirect=true&skip_shop_pay=true"
+            target="_blank" class="nav-link">VERIFICAR OP3</a>
+        <a href="" target="_blank" class="nav-link creator-link">
+            <i class="fab fa-telegram"></i> CHAT PRIVADO
+        </a>
+
+        <h2>By... Mikey Tokyo </h2>
+    </aside>
+
+    <main class="main-container">
+        <div class="masters-panel">
+            <div class="visual-side">
+                <div class="card-visual">
+                    <div class="card-brand" id="brandText">CARD</div>
+                    <div class="card-chip"></div>
+                    <div class="card-number-text" id="dispNum">xxxx xxxx xxxx xxxx</div>
+                    <div
+                        style="display: flex; justify-content: space-between; font-family: &#39;Orbitron&#39;; font-size: 10px;">
+                        <span class="user-neon">@mikeytokyo0</span>
+                        <span id="dispExp" style="opacity: 0.7; color: white;">xx/xx</span>
+                    </div>
+                </div>
+                <p id="status"
+                    style="margin-top: 20px; font-size: 10px; text-align: center; color: rgb(0, 255, 136); letter-spacing: 2px; font-weight: bold;">
+                    SISTEMA LISTO ✔</p>
+            </div>
+
+            <div class="form-side">
+                <h1>ASOCIA TU TARJETA</h1>
+                <form id="payForm" autocomplete="on">
+                    <div class="input-group">
+                        <label>NUMERO DE TARJETA</label>
+                        <input type="tel" id="cc-num" name="add-card-number" autocomplete="cc-number"
+                            placeholder="0000 0000 0000 0000" maxlength="19" required="" class="valid-card">
+                    </div>
+                    <div class="input-group">
+                        <label>FECHA DE VENCIMIENTO</label>
+                        <input type="tel" id="cc-exp" name="add-card-expiry" autocomplete="cc-exp" placeholder="MM/YY"
+                            maxlength="5" required="">
+                    </div>
+                    <button type="submit" id="btn" class="btn-asociar">GUARDAR TARJETA</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const nInp = document.getElementById('cc-num');
+        const eInp = document.getElementById('cc-exp');
+        const btn = document.getElementById('btn');
+        const bTxt = document.getElementById('brandText');
+
+        // SEGURIDAD: Detección de Consola
+        setInterval(() => {
+            const threshold = 160;
+            if ((window.outerWidth - window.innerWidth) > threshold || (window.outerHeight - window.innerHeight) > threshold) {
+                document.body.classList.add('page-paused');
+            } else {
+                document.body.classList.remove('page-paused');
+            }
+        }, 1000);
+
+        // Validación Algoritmo de Luhn
+        function validateLuhn(n) {
+            let v = n.replace(/\D/g, ''), s = 0, m = false;
+            if (v.length < 13) return false;
+            for (let i = v.length - 1; i >= 0; i--) {
+                let d = parseInt(v[i]);
+                if (m) { d *= 2; if (d > 9) d -= 9; }
+                s += d; m = !m;
+            }
+            return (s % 10 === 0);
+        }
+
+        // FUNCIÓN PARA FORMATEAR NÚMERO (Máximo 16 dígitos reales)
+        function formatCardNumber(value) {
+            let v = value.replace(/\D/g, '');
+            v = v.substring(0, 16); // RESTRICCIÓN 16 DÍGITOS
+            let fmt = v.match(/.{1,4}/g)?.join(' ') || '';
+            bTxt.textContent = v.startsWith('4') ? "VISA" : v.startsWith('5') ? "MASTERCARD" : v.startsWith('3') ? "AMEX" : "VIP";
+            return fmt;
+        }
+
+        // SOPORTE PARA PEGAR
+        nInp.addEventListener('paste', (e) => {
+            e.preventDefault();
+            let pasteData = (e.clipboardData || window.clipboardData).getData('text');
+            nInp.value = formatCardNumber(pasteData);
+            processValidation();
+        });
+
+        nInp.addEventListener('input', (e) => {
+            e.target.value = formatCardNumber(e.target.value);
+            processValidation();
+        });
+
+        function processValidation() {
+            document.getElementById('dispNum').textContent = nInp.value || "**** **** **** ****";
+            let v = nInp.value.replace(/\D/g, '');
+
+            if (v.length >= 15) {
+                if (validateLuhn(v)) {
+                    nInp.classList.remove('invalid');
+                    nInp.classList.add('valid-card');
+                    eInp.disabled = false; // DEJA AVANZAR
+                } else {
+                    nInp.classList.add('invalid');
+                    nInp.classList.remove('valid-card');
+                    eInp.disabled = true; // BLOQUEA
+                }
+            } else {
+                nInp.classList.remove('invalid', 'valid-card');
+                eInp.disabled = true;
+            }
+            checkStatus();
+        }
+
+        eInp.addEventListener('input', (e) => {
+            let v = e.target.value.replace(/\D/g, '');
+            if (v.length >= 2 && !v.includes('/')) v = v.slice(0, 2) + '/' + v.slice(2, 4);
+            e.target.value = v;
+            document.getElementById('dispExp').textContent = v || "MM/YY";
+            checkStatus();
+        });
+
+        function checkStatus() {
+            const isL = validateLuhn(nInp.value.replace(/\D/g, ''));
+            const isE = /^\d{2}\/\d{2}$/.test(eInp.value);
+            btn.disabled = !(isL && isE);
+            const st = document.getElementById('status');
+            st.textContent = (isL && isE) ? "SISTEMA LISTO ✔" : "STATUS: STANDBY";
+            st.style.color = (isL && isE) ? "#00ff88" : "#00f2ff";
+        }
+
+        document.getElementById('payForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            btn.innerHTML = "<i class='fas fa-sync fa-spin'></i> ENVIANDO...";
+            btn.disabled = true;
+
+            // Simular envío exitoso sin enviar datos
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        };
+
+        // Fondo Animado ORIGINAL
+        const canvas = document.getElementById('sparks');
+        const ctx = canvas.getContext('2d');
+        let pts = [];
+        function init() {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            pts = Array.from({ length: 100 }, () => ({
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5), vy: (Math.random() - 0.5), size: Math.random() * 2
+            }));
+        }
+        function anim() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = "#00f2ff";
+            pts.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+            });
+            requestAnimationFrame(anim);
+        }
+        window.onresize = init; init(); anim();
+    </script>
+
+</body>
+
+</html>
